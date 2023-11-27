@@ -36,6 +36,6 @@ app.use('/', (req, res) => {
     res.send('Server works');
 })
 
-app.listen(5000, () => {
+app.listen(process.env.PORT, () => {
     console.log('Server run on PORT: 5000')
 });
