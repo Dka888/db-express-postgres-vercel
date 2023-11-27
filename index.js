@@ -1,6 +1,7 @@
 import express from "express";
-import { Sequelize } from 'sequelize';
 import 'dotenv/config';
+import { Sequelize } from 'sequelize';
+
 
 const password = process.env.POSTGRES_PASSWORD;
 const username = process.env.POSTGRES_USER
@@ -30,8 +31,6 @@ sequelize
   .catch((error) => {
     console.error('Unable to connect to the database:', error);
   });
-
-
 
 
 const app = express();
