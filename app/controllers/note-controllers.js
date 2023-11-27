@@ -1,7 +1,8 @@
 import { Note } from '../models/Note.js';
 
 export const getAllNotes = async (req, res) => {
-    const { userId } = req;
+    // const { userId } = req;
+    const userId = 1;
     try {
         const notes = await Note.findAll({
             where: { userId },
@@ -13,10 +14,10 @@ export const getAllNotes = async (req, res) => {
 }
 
 export const createNote = async (req, res) => {
-    const { title, content } = req.body;
-    const { userId } = req;
+    const { title, content, userId } = req.body;
+    // const { userId } = req;
     try {
-        const note = await Note.create({ title, content }, userId);
+        const note = await Note.create({ title, content, userId});
         res.status(200).send(note);
     } catch (error) {
         res.status(500).send('Błąd podczas dodawania notatki.');
