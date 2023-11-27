@@ -1,8 +1,7 @@
 import { Note } from '../models/Note.js';
 
 export const getAllNotes = async (req, res) => {
-    // const { userId } = req;
-    const userId = 1;
+    const { userId } = req;
     try {
         const notes = await Note.findAll({
             where: { userId },
@@ -33,7 +32,6 @@ export const getNote = async (req, res) => {
 export const updateNote = async (req, res) => {
     const { id } = req.params;
     const { title, content, completed, notification, forDelete, color } = req.body;
-    // const { userId } = req;
 
     try {
         const note = await Note.findOne({ where: { id }, });
