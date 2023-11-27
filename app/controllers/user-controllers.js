@@ -1,6 +1,7 @@
 import { User } from '../models/User.js';
 import bcrypt from 'bcrypt';
-
+import pkg from 'jsonwebtoken';
+const {verify, sign} = pkg;
 
 export const register = async (req, res) => {
     const { username, email, password } = req.body;
@@ -40,7 +41,12 @@ export const login = async (req, res) => {
           return res.status(404).send("Błąd")
         }
 
-        res.status(200).send({user});
+        const secretKey = 'Pss...It is The Secret!'
+        const token = sign({ id: user.id }, secretKey, {
+            expiresIn: 86400,
+          });
+
+        res.status(200).send({user, token}, );
 
     }catch(e) {
         res.status(500).send('błąd');
