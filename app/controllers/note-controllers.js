@@ -14,8 +14,8 @@ export const getAllNotes = async (req, res) => {
 }
 
 export const createNote = async (req, res) => {
-    const { title, content, userId } = req.body;
-    // const { userId } = req;
+    const { title, content } = req.body;
+    const { userId } = req;
     try {
         const note = await Note.create({ title, content, userId});
         res.status(200).send(note);
