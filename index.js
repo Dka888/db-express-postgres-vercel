@@ -1,7 +1,12 @@
 import express from "express";
 import 'dotenv/config';
-import { Sequelize } from 'sequelize';
+// import { Sequelize } from 'sequelize';
+import pg from 'pg';
 
+const { Pool } = pg;
+const pool = new Pool({
+  connectionString: "postgres://default:CEjehzq83vga@ep-lively-night-27832602-pooler.us-east-1.postgres.vercel-storage.com:5432/verceldb?sslmode=require",
+})
 
 const password = process.env.POSTGRES_PASSWORD;
 const username = process.env.POSTGRES_USER
@@ -20,17 +25,17 @@ const host = process.env.POSTGRES_HOST;
 // });
 
 
-const database = process.env.POSTGRES_URL + '?sslmode=require';
-const sequelize = new Sequelize(database);
+// const database = process.env.POSTGRES_URL + '?sslmode=require';
+// const sequelize = new Sequelize(database);
 
-sequelize
-  .authenticate()
-  .then(() => {
-    console.log('Connected to the database.');
-  })
-  .catch((error) => {
-    console.error('Unable to connect to the database:', error);
-  });
+// sequelize
+//   .authenticate()
+//   .then(() => {
+//     console.log('Connected to the database.');
+//   })
+//   .catch((error) => {
+//     console.error('Unable to connect to the database:', error);
+//   });
 
 
 const app = express();
