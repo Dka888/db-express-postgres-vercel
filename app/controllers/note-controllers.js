@@ -64,7 +64,7 @@ export const deleteNote = async (req, res) => {
     const { id } = req.params;
 
     try {
-        const note = await Note.findOne({where: { id, userId }})
+        const note = await Note.findOne({where: { id }})
 
         if (!note) {
             return res.status(404).send('Notatka nie znaleziona.');

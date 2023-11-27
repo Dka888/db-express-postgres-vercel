@@ -5,5 +5,5 @@ export const router = new Router();
 router.get('/', getAllNotes);
 router.get('/:id', getNote);
 router.post('/', createNote);
-router.patch('/:id', updateNote);
-// router.delete('/:id', deleteNote);
+router.put('/:id', updateNote);
+router.delete('/:id', deleteNote);
