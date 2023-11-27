@@ -19,6 +19,9 @@ const sequelize = new Sequelize(process.env.POSTGRES_URL, {
   },
 });
 
+sequelize.authenticate();
+
+
 const app = express();
 
 export const User = sequelize.define('User', {
@@ -50,8 +53,11 @@ export const User = sequelize.define('User', {
     defaultValue: DataTypes.NOW,
     allowNull: false,
   },
+}, {
+  tableName: 'Users'
 });
 
+User.sync({ alter: true });
 
 app.use('/', (req, res) => {
     res.send('Server works');
@@ -59,9 +65,7 @@ app.use('/', (req, res) => {
 
 app.use('/user', async (req, res) => {
   try {
-    const poolResult = await pool.query('SELECT NOW()');
-    console.log('Pool Result:', poolResult.rows);
-
+    const poolResult = await pool.query('SELECT * FROM Users');
     const newUser = await User.create({
       username: 'example_user',
       email: 'user@example.com',
@@ -69,6 +73,17 @@ app.use('/user', async (req, res) => {
     });
 
     res.send(`Server works, user created: ${newUser.username}`);
+  } catch (error) {
+    console.error('Błąd podczas obsługi żądania:', error.message);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+app.use('/users', async (req, res) => {
+  try {
+  const users = await User.findAll();
+
+    res.send(users);
   } catch (error) {
     console.error('Błąd podczas obsługi żądania:', error.message);
     res.status(500).send('Internal Server Error');
