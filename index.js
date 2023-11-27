@@ -57,18 +57,15 @@ export const User = sequelize.define('User', {
   tableName: 'Users'
 });
 
-User.sync({ alter: true });
-
-app.use('/', (req, res) => {
-    res.send('Server works');
-})
+// app.use('/', (req, res) => {
+//     res.send('Server works');
+// })
 
 app.use('/user', async (req, res) => {
   try {
-    const poolResult = await pool.query('SELECT * FROM Users');
     const newUser = await User.create({
-      username: 'example_user',
-      email: 'user@example.com',
+      username: 'user',
+      email: 'user@user.com',
       password: 'password123',
     });
 
