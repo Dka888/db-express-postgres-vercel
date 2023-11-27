@@ -24,29 +24,36 @@ export const createNote = async (req, res) => {
     }
 }
 
+export const getNote = async (req, res) => {
+    const { id } = req.params;
+    const note = await Note.findOne({ where: { id } });
+    res.status(200).send(note);
+}
+
 export const updateNote = async (req, res) => {
     const { id } = req.params;
     const { title, content, completed, notification, forDelete, color } = req.body;
-    const { userId } = req;
+    // const { userId } = req;
 
     try {
-        const note = await Note.findOne({
-            where: { id, userId }
-        });
-        if (note) {
-            note.title = title;
-            note.content = content;
-            note.completed = completed;
-            note.notification = notification;
-            note.forDelete = forDelete;
-            note.color = color;
-            await note.save();
-        }
+        const note = await Note.findOne({ where: { id }, });
 
         if (!note) {
             return res.status(404).send('Notatka nie znaleziona.');
         }
 
+        note.title = title; 
+
+            note.content = content;
+
+            note.completed = completed;
+
+            note.notification = notification;
+
+            note.forDelete = forDelete;
+
+            note.color = color;
+        await note.save();
         res.status(200).send(note);
     } catch (error) {
         res.status(500).send('Błąd podczas edycji notatki.');
