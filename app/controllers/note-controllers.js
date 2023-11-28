@@ -6,7 +6,7 @@ export const getAllNotes = async (req, res) => {
         const notes = await Note.findAll({
             where: { userId },
         });
-        res.status(200).send({ notes });
+        res.status(200).send(notes);
     } catch (e) {
         res.status(500);
     }
