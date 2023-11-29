@@ -68,7 +68,7 @@ export const deleteNote = async (req, res) => {
             return res.status(404).send('Notatka nie znaleziona.');
         }
         await note.destroy();
-        res.status(200).send();
+        res.status(204).send();
     } catch (error) {
         res.status(500).send('Błąd podczas usuwania notatki.');
     }
